@@ -8,4 +8,7 @@ on:  #events to trigger the workflow
 jobs:
   build:
     runs-on: ubuntu-latest
-  
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4 # Standard Github Action for pulling source code
