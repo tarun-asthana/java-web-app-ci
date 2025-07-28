@@ -12,3 +12,19 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4 # Standard Github Action for pulling source code
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Test with Maven
+        run: mvn -B clean verify
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3 # standard Github Action for artifact upload
+        with:
+          name: web-app-war
+          path: target/*.war
