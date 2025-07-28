@@ -1,0 +1,11 @@
+name: Java CI for Web App
+on:  #events to trigger the workflow
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
