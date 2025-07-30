@@ -4,8 +4,11 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-
+env:
+  ABCD: EFGH
 jobs:
+  env:
+    ABCD: EFGH
   build:
     runs-on: ubuntu-latest
     concurrency:
@@ -23,4 +26,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - run: echo "I am alive !!!" ; sleep 60;
+      - name: Setting up environment variable
+        run: echo "ABCD=EFGH" >> $GITHUB_ENV
 
