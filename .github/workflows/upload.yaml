@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 0.01
+    timeout-minutes: 1
     steps:
       - name: Checkout source
         uses: actions/checkout@v4 # Standard Github Action for pulling source code
@@ -20,5 +20,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - run: echo "I am alive !!!"
+      - run: echo "I am alive !!!" ; sleep 60;
  
