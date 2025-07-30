@@ -21,5 +21,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - run: echo "$ABCD"; echo "$EFGH";
+      - run: echo ${{ secrets.ABCD}}; echo {{ variables.$EFGH}};
 
