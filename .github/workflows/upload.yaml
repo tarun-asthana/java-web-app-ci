@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      cancel-in-progress: true
     timeout-minutes: 1
     steps:
       - name: Checkout source
@@ -21,4 +23,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - run: echo "I am alive !!!" ; sleep 60;
- 
+
+ test:
+   runs-on: my-self-hosted-runner
