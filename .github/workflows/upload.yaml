@@ -21,7 +21,7 @@ jobs:
           java-version: '100000007'
           distribution: 'temurin'
           cache: maven
-      - run: "I am alive !!!"
+      - run: echo "I am alive !!!"
   deploy:
     needs: build
     runs-on: ubuntu-latest
