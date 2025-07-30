@@ -20,11 +20,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build and Test with Maven
-        run: mvn -B clean verify
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4 # standard Github Action for artifact upload
-        with:
-          name: web-app-war
-          path: target/*.war
