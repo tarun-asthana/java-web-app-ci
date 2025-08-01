@@ -1,11 +1,11 @@
 name: Upload Artifact
 on:
-  workflow_dispatch:
-    inputs:
-      ticket_id:
-        description: 'Ticket ID of your JIRA/Notion Change Ticket'
-        required: true
-
+  push:
+    branches: ["main"]
+    paths: ['src/**']
+  pull_request:
+    branches: ["main"]
+    paths: ['src/**']
 jobs:
   build:
     runs-on: Ajay
