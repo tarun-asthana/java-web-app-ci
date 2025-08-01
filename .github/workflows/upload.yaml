@@ -6,7 +6,7 @@ on:
     branches: ["main"]
 jobs:
   build:
-    runs-on: Bilal
+    runs-on: Ajay
     concurrency:
       group: build-group
       cancel-in-progress: true
