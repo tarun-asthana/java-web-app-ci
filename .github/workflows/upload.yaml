@@ -6,7 +6,7 @@ on:
     branches: ["main"]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: my-runner
     concurrency:
       group: build-group
       cancel-in-progress: true
