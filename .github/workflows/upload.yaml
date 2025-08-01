@@ -24,4 +24,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - run: echo ${{ secrets.ABCD}}; echo ${{ vars.EFGH}};
+      - name: Branch Check
+        run: |
+          if ["${{ github.ref }}"] == "refs/heads/main" ]; then
+            echo "Main branch"
+          else
+            echo "Not Main branch"
+          fi
 
