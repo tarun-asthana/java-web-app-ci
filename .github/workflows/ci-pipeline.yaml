@@ -21,6 +21,21 @@ jobs:
       matrix:
         java: [11, 17]
 
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB:testdb
+          POSTGRES_USER: testuser
+          POSTGRES_PASS: testing
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
