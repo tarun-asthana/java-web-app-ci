@@ -47,6 +47,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Verify Java and Maven Version
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          mvn -v
+
+
       - name: Install Maven
         run: |
           sudo apt-get update
