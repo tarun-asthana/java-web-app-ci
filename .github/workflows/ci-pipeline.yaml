@@ -47,6 +47,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Install Maven
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y maven
+
       - name: Build with Maven
         run: mvn clean package --file pom.xml
 
@@ -58,6 +63,13 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         continue-on-error: true
+
+      - name: Upload Test Reports
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports-${{ matrix.java }}
+          path: target/surefire-reports/
 
 
 
