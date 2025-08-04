@@ -67,7 +67,7 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: java
-          packs: codeql/java-queries,security-extended
+          packs: codeql/java-queries
 
       - name: Compile the project (for CodeQL to trace)
         run: mvn clean compile --file pom.xml
