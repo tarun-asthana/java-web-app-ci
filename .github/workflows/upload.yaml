@@ -59,16 +59,25 @@ jobs:
 
       - name: Verify Java and Maven Version
         run: |
-         echo "JAVA_HOME=$JAVA_HOME"
-         java -version
-         mvn -v
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          mvn -v
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java
+          packs: codeql/java-queries,security-extended
 
-      - name: Build with Maven
-        run: mvn clean package --file pom.xml
+      - name: Compile the project (for CodeQL to trace)
+        run: mvn clean compile --file pom.xml
 
-      - name: Run Tests
-        run: mvn test
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        continue-on-error: true
+
+      - name: Package Application
+        run: mvn package --file pom.xml
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
@@ -82,13 +91,3 @@ jobs:
         with:
           name: test-reports-${{ matrix.java }}
           path: target/surefire-reports/
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: java
-          packs: codeql/java-queries,security-extended,codeql/java-experimental-atm
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        continue-on-error: true
