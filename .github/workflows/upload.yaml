@@ -87,6 +87,7 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: java
+          packs: codeql/java-queries,security-extended,codeql/java-experimental-atm
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
