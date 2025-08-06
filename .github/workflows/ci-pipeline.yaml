@@ -52,12 +52,12 @@ jobs:
         run: mvn clean package --file pom.xml
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
+        uses: github/codeql-action/init@v3
         with:
           languages: java
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
+        uses: github/codeql-action/analyze@v3
         continue-on-error: true
 
       - name: Upload Test Reports
