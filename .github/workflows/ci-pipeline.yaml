@@ -12,6 +12,11 @@ on:
     - 'src/**'
     - 'pom.xml'
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   build:
     runs-on: tarun
