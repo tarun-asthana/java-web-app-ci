@@ -22,30 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    services:
-      postgres:
-        image: postgres:14
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_DB: testdb
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testing
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Java 17
-        uses: actions/setup-java@v4
+        uses: tarun-asthana/github-actions-shared/.github/workflows/java-build.yaml@main
         with:
-          java-version: 17
-          distribution: temurin
-          cache: maven
+          java_version: '17'
 
       - name: Install Maven
         run: |
