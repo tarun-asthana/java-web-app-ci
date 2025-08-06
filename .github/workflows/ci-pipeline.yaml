@@ -22,6 +22,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testing
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,18 +69,19 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
-      - name: Upload Test Reports
+      - name: Package Surefire Reports (if present)
         if: always()
         run: |
           if [ -d target/surefire-reports ]; then
-            echo "Uploading test reports..."
+            echo "Found test reports. Archiving..."
+            tar -czf surefire-reports.tar.gz target/surefire-reports
           else
-            echo "No surefire-reports directory found."
+            echo "No test reports found to archive."
           fi
 
-      - name: Upload Surefire Reports as Artifact
-        if: always() && exists('target/surefire-reports')
+      - name: Upload Test Report Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-reports
-          path: target/surefire-reports
+          path: surefire-reports.tar.gz
