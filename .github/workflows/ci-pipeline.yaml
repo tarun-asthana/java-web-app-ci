@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   build:
-    uses: tarun-asthana/github-actions-shared/.github/workflows/java-build.yml@main
+    uses: tarun-asthana/github-actions-shared/.github/workflows/java-build.yaml@main
     with:
       java_version: '17'
 
