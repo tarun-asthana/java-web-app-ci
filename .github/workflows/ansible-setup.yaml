@@ -1,0 +1,33 @@
+name: Run Ansible Playbook
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ansible-run:
+    runs-on: tarun
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Ansible
+      run: |
+        sudo apt update
+        sudo apt install -y ansible sshpass
+
+    - name: Setup SSH Keys
+      run: | 
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H "${{ secrets.TARGET_HOST }}" >> ~/.ssh/known_hosts
+
+    - name: Create inventory
+      run: |
+        echo "${{ secrets.TARGET_HOST }}" >> inventory.ini
+
+    - name: Run Ansible Playbook
+      run: |
+        ansible-playbook -i inventory.ini playbook.yaml --private-key ~/.ssh/id_rsa
+        
