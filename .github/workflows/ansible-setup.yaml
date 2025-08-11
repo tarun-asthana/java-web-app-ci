@@ -26,7 +26,8 @@ jobs:
     - name: Create inventory
       run: |
         echo "[target]" > inventory.ini
-        echo "${{ secrets.TARGET_SERVER }} ansible_user=ubuntu" >> inventory.ini
+        echo "${{ secrets.TARGET_SERVER }} ansible_user=ubuntu ansible_python_interpreter=/usr/bin/python3" >> inventory.ini
+
 
 
 
