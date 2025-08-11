@@ -19,10 +19,10 @@ jobs:
     - name: Setup SSH Keys
       run: | 
         mkdir -p ~/.ssh
-        printf '%s\n' "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H "${{ secrets.TARGET_HOST }}" >> ~/.ssh/known_hosts
-
+   
     - name: Create inventory
       run: |
         echo "${{ secrets.TARGET_HOST }}" >> inventory.ini
