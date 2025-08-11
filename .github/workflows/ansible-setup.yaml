@@ -29,9 +29,21 @@ jobs:
         echo "${{ secrets.TARGET_SERVER }} ansible_user=ubuntu ansible_python_interpreter=/usr/bin/python3" >> inventory.ini
 
 
-
-
     - name: Run Ansible Playbook
       run: |
+  
+        cat > bootstrap_py.yml <<'EOF'
+        - hosts: target
+          gather_facts: no
+          become: true
+          tasks:
+          - name: Install Python dependency for Ansible
+            apt:
+              name: python3-six
+              state: present
+              update_cache: yes
+          - name: Gather facts after python3-six is present
+            setup:
+        EOF
         ansible-playbook -i inventory.ini playbook.yaml --private-key ~/.ssh/id_rsa
         
